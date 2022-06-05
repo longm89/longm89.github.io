@@ -1,43 +1,37 @@
 {
   "basics": {
-    "name": "Molly Maluhia",
+    "name": "Mai Tien Long",
     "label": "Student",
     "picture": "https://github.com/kambergjohnson.png",
-    "email": "molly@hawaii.edu",
+    "email": "long.mai@imj-prg.fr",
     "phone": "808-333-4444",
-    "website": "https://mmaluhia.github.io",
-    "summary": "I am studying for a B.S. in Computer Science in the Department of Information and Computer Sciences at the University of Hawaii. I expect to graduate in Spring, 2024.",
-    "location": { "address": "", "postalCode": "96822", "city": "Honolulu", "countryCode": "USA", "region": "Hawaii" },
+    "website": "https://longm89.github.io",
+    "summary": "I am studying for a Master degree in Statistics and Machine Learning at the University of Paris Saclay. I expect to graduate in September, 2022.",
+    "location": { "address": "", "postalCode": "75013", "city": "Paris", "countryCode": "FR", "region": "Paris" },
     "profiles": [
-      { "network": "github", "username": "mmaluhia", "url": "http://github.com/changeme" },
-      { "network": "linkedin", "username": "mollymaluhia", "url": "http://linkedin.com/in/changeme" },
-      { "network": "twitter", "username": "mollymal", "url": "http://twitter.com/changeme" },
-      { "network": "instagram", "username": "molly", "url": "http://instagram.com/changeme" }
+      { "network": "github", "username": "longm89", "url": "http://github.com/longm89" },
+      { "network": "linkedin", "username": "longm89", "url": "http://linkedin.com/in/longm89" }
     ]
   },
   "interests": [
-    { "name": "Interactive media" },
-    { "name": "Neuromorphic Computing" },
-    { "name": "Quantum Computing" },
-    { "name": "Robotics" },
-    { "name": "3D Graphics" }
+    { "name": "Problem Solving" },
+    { "name": "Programming" },
+    { "name": "Statistics" },
+    { "name": "Machine Learning" },
+    { "name": "Technology" }
   ],
   "skills": [
     {
       "name": "Languages and Frameworks",
-      "keywords": [ "C", "C++", "Java", "Javascript", "Assembly", "Common Lisp" ]
-    },
-    {
-      "name": "Toolsets/OS",
-      "keywords": [ "MacOS", "Ubuntu", "Git/GitHub", "g++", "TI LaunchPad" ]
+      "keywords": [ "R", "Python", "Javascript"]
     }
   ],
   "education": [
     {
-      "institution": "University of Hawaii, Honolulu, HI",
-      "area": "Computer Science (expected Spring, 2018)",
-      "studyType": "B.S.",
-      "startDate": "2013-09-01",
+      "institution": "University of Paris Saclay, Gif-sur-Yvette, FR",
+      "area": "Statistics and Machine Learning (expected September, 2022)",
+      "studyType": "Master.",
+      "startDate": "2021-09-24",
       "endDate": "Present",
       "courses": [
       ]
