@@ -4,7 +4,7 @@
     "label": "Student",
     "picture": "https://github.com/longm89.png",
     "email": "long.mai@imj-prg.fr",
-    "phone": "808-333-4444",
+    "phone": "+33 641400307",
     "website": "https://longm89.github.io",
     "summary": "I am studying for a Master degree in Statistics and Machine Learning at the University of Paris Saclay. I expect to graduate in September, 2022.",
     "location": { "address": "", "postalCode": "75013", "city": "Paris", "countryCode": "FR", "region": "Paris" },
@@ -31,7 +31,7 @@
       "institution": "University of Paris Saclay, Gif-sur-Yvette, FR",
       "area": "Statistics and Machine Learning (expected September, 2022)",
       "studyType": "Master",
-      "startDate": "2021-09-24",
+      "startDate": "2021-09",
       "endDate": "Present",
       "courses": [
       ]    
@@ -39,14 +39,14 @@
   ],
   "work": [
     {
-      "company": "Renault Groupe",
+      "company": "Groupe Renault",
       "position": "Data Analyst",
       "website": "",
       "startDate": "2022-03-01",
       "endDate": "Present",
       "summary": "Analyse data on automotive seats",
       "highlights": [
-        "Analyse data on automotive seats using causal inference, machine learning models and high dimensional visualisation tools"
+        "Analyse data on automotive seats using causal inference, machine learning models and high dimensional visualisation tools."
       ]
     },
     {
@@ -56,7 +56,7 @@
       "endDate": "2021-09-15",
       "summary": "",
       "highlights": [
-        "Read research papers and implement a model to predict quality of images using Pytorch"
+        "Read research papers and implement a model to predict quality of images using Pytorch."
       ]
     }
   ],
