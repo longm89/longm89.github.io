@@ -2,7 +2,7 @@
   "basics": {
     "name": "Mai Tien Long",
     "label": "Student",
-    "picture": "https://raw.githubusercontent.com/longm89/longm89.github.io/main/img/photo_resize_renault.jpeg",
+    "picture": "img/photo_resize_renault.jpeg",
     "email": "long.mai@imj-prg.fr",
     "phone": "808-333-4444",
     "website": "https://longm89.github.io",
@@ -18,23 +18,23 @@
     { "name": "Programming" },
     { "name": "Statistics" },
     { "name": "Machine Learning" },
-    { "name": "Technology" }
+    { "name": "Technology." }
   ],
   "skills": [
     {
       "name": "Languages and Frameworks",
-      "keywords": [ "R", "Python", "Javascript"]
+      "keywords": [ "R", "Python", "Javascript."]
     }
   ],
   "education": [
     {
       "institution": "University of Paris Saclay, Gif-sur-Yvette, FR",
       "area": "Statistics and Machine Learning (expected September, 2022)",
-      "studyType": "Master.",
+      "studyType": "Master",
       "startDate": "2021-09-24",
       "endDate": "Present",
       "courses": [
-      ]
+      ]    
     }
   ],
   "work": [
