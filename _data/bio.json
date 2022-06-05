@@ -7,7 +7,7 @@
     "phone": "+33 641400307",
     "website": "https://longm89.github.io",
     "summary": "I am studying for a Master degree in Statistics and Machine Learning at the University of Paris Saclay. I expect to graduate in September, 2022.",
-    "location": { "address": "", "postalCode": "75013", "city": "Paris", "countryCode": "FR", "region": "Paris" },
+    "location": { "address": "", "postalCode": "75013", "city": "Paris", "countryCode": "FR", "region": "Île-de-France" },
     "profiles": [
       { "network": "github", "username": "longm89", "url": "http://github.com/longm89" },
       { "network": "linkedin", "username": "longm89", "url": "http://linkedin.com/in/longm89" }
@@ -18,12 +18,12 @@
     { "name": "Programming" },
     { "name": "Statistics" },
     { "name": "Machine Learning" },
-    { "name": "Technology." }
+    { "name": "Deep Learning." }
   ],
   "skills": [
     {
       "name": "Languages and Frameworks",
-      "keywords": [ "R", "Python", "Javascript."]
+      "keywords": [ "R", "Python", "Javascript", "Numpy", "Pandas", "Scikit Learn", "Pytorch"]
     }
   ],
   "education": [
@@ -40,10 +40,10 @@
   "work": [
     {
       "company": "Groupe Renault",
-      "position": "Data Analyst",
+      "position": "Internship: Data Analyst",
       "website": "",
       "startDate": "2022-03-01",
-      "endDate": "Present",
+      "endDate": "2022-08-31",
       "summary": "Analyse data on automotive seats",
       "highlights": [
         "Analyse data on automotive seats using causal inference, machine learning models and high dimensional visualisation tools."
