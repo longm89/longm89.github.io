@@ -83,16 +83,16 @@
           <div class="col-3">
             <p class="m-0 text-end">
               {% if entry.startDate %}
-                {{ entry.startDate | slice: 0,4 }}
+                {{ entry.startDate | date: "%B %Y" }}
               {% endif %}
               {% if entry.startDate and entry.startDate != '' and entry.endDate and entry.endDate != '' %}
               -
               {% endif %}
               {% if entry.endDate %}
                 {% if entry.endDate != "Present" %}
-                  {{ entry.endDate | slice: 0,4 }}
+                  {{ entry.endDate | date: "%B %Y" }}
                 {% else %}
-                  {{ entry.endDate | date: "%-d %B %Y"  }}
+                  {{ entry.endDate | date: "%B %Y"  }}
                 {% endif %}
               {% endif %}
             </p>
@@ -124,16 +124,16 @@
             <div class="col-3">
               <p class="m-0 text-end">
                 {% if entry.startDate %}
-                  {{ entry.startDate | date: "%-d %B %Y"  }}
+                  {{ entry.startDate | date: "%B %Y"  }}
                 {% endif %}
                 {% if entry.startDate and entry.startDate != '' and entry.endDate and entry.endDate != '' %}
                 -
                 {% endif %}
                 {% if entry.endDate %}
                 {% if entry.endDate != "Present" %}
-                  {{ entry.endDate | slice: 0,4 }}
+                  {{ entry.endDate | date: "%B %Y" }}
                 {% else %}
-                  {{ entry.endDate | date: "%-d %B %Y"  }}
+                  {{ entry.endDate | date: "%B %Y"  }}
                 {% endif %}
               {% endif %}
               </p>
@@ -165,16 +165,16 @@
             <div class="col-3">
               <p class="m-0 text-end">
                 {% if entry.startDate %}
-                  {{ entry.startDate | slice: 0,4 }}
+                  {{ entry.startDate | date: "%B %Y" }}
                 {% endif %}
                 {% if entry.startDate and entry.startDate != '' and entry.endDate and entry.endDate != '' %}
                 -
                 {% endif %}
                 {% if entry.endDate %}
                   {% if entry.endDate != "Present" %}
-                    {{ entry.endDate | slice: 0,4 }}
+                    {{ entry.endDate | date: "%B %Y" }}
                   {% else %}
-                    {{ entry.endDate }}
+                    {{ entry.endDate | date: "%B %Y"}}
                   {% endif %}
                 {% endif %}
               </p>
@@ -201,7 +201,7 @@
           </div>
           <div class="col-3">
             <p class="m-0 text-end">
-              {{ entry.date}}
+              {{ entry.date | date: "%B %Y"}}
             </p>
           </div>
         </div>
