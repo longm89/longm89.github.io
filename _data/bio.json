@@ -56,7 +56,7 @@
       "endDate": "2021-09-15",
       "summary": "",
       "highlights": [
-        "Read research papers and implement a model to predict quality of images using Pytorch."
+        "Read research papers and train models to predict quality of images using Pytorch."
       ]
     }
   ],
