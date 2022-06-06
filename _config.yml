@@ -8,7 +8,7 @@ baseurl: ""
 
 # OPTIONAL CHANGES
 ## Specify the theme using any of the css files in css/techfolio-theme
-techfolio-theme: default.css
+techfolio-theme: lime.css
 ## You can change the bio page title to (say) CV.
 bio-page-title: Resume
 # You can change the bio page theme to (say) bio/cv.html
