@@ -92,7 +92,7 @@
                 {% if entry.endDate != "Present" %}
                   {{ entry.endDate | slice: 0,4 }}
                 {% else %}
-                  {{ entry.endDate }}
+                  {{ entry.endDate | date: "%-d %B %Y"  }}
                 {% endif %}
               {% endif %}
             </p>
@@ -124,7 +124,7 @@
             <div class="col-3">
               <p class="m-0 text-end">
                 {% if entry.startDate %}
-                  {{ entry.startDate | slice: 0,4 }}
+                  {{ entry.startDate | date: "%-d %B %Y"  }}
                 {% endif %}
                 {% if entry.startDate and entry.startDate != '' and entry.endDate and entry.endDate != '' %}
                 -
@@ -133,7 +133,7 @@
                 {% if entry.endDate != "Present" %}
                   {{ entry.endDate | slice: 0,4 }}
                 {% else %}
-                  {{ entry.endDate }}
+                  {{ entry.endDate | date: "%-d %B %Y"  }}
                 {% endif %}
               {% endif %}
               </p>
