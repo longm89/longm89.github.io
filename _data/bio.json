@@ -42,8 +42,8 @@
       "company": "Groupe Renault",
       "position": "Internship: Data Analyst",
       "website": "",
-      "startDate": "2022-03-01",
-      "endDate": "2022-08-31",
+      "startDate": "2022/03/01",
+      "endDate": "2022/08/31",
       "summary": "Analyse data on automotive seats",
       "highlights": [
         "Analyse data on automotive seats using causal inference, machine learning models and high dimensional visualisation tools."
@@ -52,8 +52,8 @@
     {
       "company": "FPT-Software",
       "position": "AI Engineer",
-      "startDate": "2021-06-15",
-      "endDate": "2021-09-15",
+      "startDate": "2021/06/15",
+      "endDate": "2021/09/15",
       "summary": "",
       "highlights": [
         "Read research papers and train models to predict quality of images using Pytorch."
