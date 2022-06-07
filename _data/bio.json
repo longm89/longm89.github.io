@@ -37,9 +37,9 @@
       ]    
     },
     {
-      "institution": "ALGANT Master Program: University of Paris Sud XI, France/University of Padova, Italy",
+      "institution": "University of Paris Sud XI, France-University of Padova, Italy",
       "area": "Algebra, Geometry, Number theory",
-      "studyType": "Erasmus Mundus joint Master",
+      "studyType": "ALGANT Erasmus Mundus joint Master",
       "startDate": "2013-09-01",
       "endDate": "2015-05-31",
       "courses": [
@@ -80,8 +80,8 @@
     {
       "company": "University of Paris-Diderot, France",
       "position": "PhD Candidate and Teaching Assistant",
-      "startDate": "2018",
-      "endDate": "2020",
+      "startDate": "2018-09-01",
+      "endDate": "2020-08-31",
       "summary": "Doing research and teaching",
       "highlights": [
         "Doing research in Geometry and Number theory.", 
@@ -91,8 +91,8 @@
     {
       "company": "Sorbonne University, France",
       "position": "PhD Candidate",
-      "startDate": "2015",
-      "endDate": "2020",
+      "startDate": "2015-09-01",
+      "endDate": "2020-08-31",
       "summary": "Doing research and teaching",
       "highlights": [
         "Doing research in Geometry and Number theory.", 
@@ -109,7 +109,7 @@
     },
     {
       "title": "First prize",
-      "date": "2007",
+      "date": "2007-05-31",
       "awarder": "Ministry of education, Vietnam",
       "summary": "Vietnamese National Olympiad in Informatics for highschool students."
     }
