@@ -69,12 +69,34 @@
     },
     {
       "company": "FPT-Software",
-      "position": "AI Engineer",
+      "position": "Short-term contract: AI Engineer",
       "startDate": "2021-06-15",
       "endDate": "2021-09-15",
       "summary": "",
       "highlights": [
         "Read research papers and train models to predict quality of images using Pytorch."
+      ]
+    }, 
+    {
+      "company": "University of Paris-Diderot, France",
+      "position": "PhD Candidate and Teaching Assistant",
+      "startDate": "2018",
+      "endDate": "2020",
+      "summary": "Doing research and teaching",
+      "highlights": [
+        "Doing research in Geometry and Number theory.", 
+        "Teaching undergraduate courses in Linear algebra and Analysis."
+      ]
+    },
+    {
+      "company": "Sorbonne University, France",
+      "position": "PhD Candidate",
+      "startDate": "2015",
+      "endDate": "2020",
+      "summary": "Doing research and teaching",
+      "highlights": [
+        "Doing research in Geometry and Number theory.", 
+        "Teaching undergraduate exercise sessions in Linear algebra and Analysis."
       ]
     }
   ],
