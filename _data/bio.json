@@ -40,8 +40,8 @@
       "institution": "ALGANT Master Program: University of Paris Sud XI, France/University of Padova, Italy",
       "area": "Algebra, Geometry, Number theory",
       "studyType": "Erasmus Mundus joint Master",
-      "startDate": "2013-09",
-      "endDate": "2015-05",
+      "startDate": "2013-09-01",
+      "endDate": "2015-05-31",
       "courses": [
       ]    
     },
@@ -49,8 +49,8 @@
       "institution": "Manhattanville College, USA",
       "area": "Mathematics",
       "studyType": "Bachelor of Arts",
-      "startDate": "2009",
-      "endDate": "2013",
+      "startDate": "2009-08-15",
+      "endDate": "2013-05-31",
       "courses": [
       ]    
     }
