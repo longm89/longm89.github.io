@@ -23,7 +23,7 @@
   "skills": [
     {
       "name": "Languages and Frameworks",
-      "keywords": [ "R", "Python", "Javascript", "Numpy", "Pandas", "Scikit Learn", "Pytorch"]
+      "keywords": [ "R", "Python", "Javascript", "Numpy", "Pandas", "Scikit Learn", "Pytorch", "Plotly"]
     }
   ],
   "education": [
@@ -33,6 +33,15 @@
       "studyType": "Master",
       "startDate": "2021-09-15",
       "endDate": "Present",
+      "courses": [
+      ]    
+    },
+    {
+      "institution": "ALGANT Erasmus Joint Master Program: University of Paris Sud XI, France/University of Padova, Italy",
+      "area": "Algebra, Geometry, Number theory",
+      "studyType": "Master",
+      "startDate": "2013-09",
+      "endDate": "2015-05",
       "courses": [
       ]    
     }
