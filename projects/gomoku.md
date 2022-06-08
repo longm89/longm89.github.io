@@ -1,7 +1,7 @@
 ---
 layout: project
 type: project
-image: img/vacay/vacay-square.png
+image: img/gomoku/gomoku_game.png
 title: Gomoku game
 # All dates must be YYYY-MM-DD format!
 date: 2021
@@ -16,7 +16,7 @@ labels:
 summary: A board game, called Gomoku in Japanese and Co ca ro in Vietnamese.
 ---
 
-<img class="img-fluid" src="../img/vacay/vacay-home-page.png">
+<img class="img-fluid" src="../img/gomoku/gomoku_game.png">
 
 This is a board game, called Gomoku in Japanese and Co ca ro in Vietnamese.
 
