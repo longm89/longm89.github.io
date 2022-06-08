@@ -1,0 +1,31 @@
+---
+layout: project
+type: project
+image: img/vacay/vacay-square.png
+title: Gomoku game
+# All dates must be YYYY-MM-DD format!
+date: 2021
+labels:
+  - Javascript
+  - React
+  - CSS
+  - Node.js
+  - Express
+  - MongoDB
+  - GitHub
+summary: A board game, called Gomoku in Japanese and Co ca ro in Vietnamese.
+---
+
+<img class="img-fluid" src="../img/vacay/vacay-home-page.png">
+
+This is a board game, called Gomoku in Japanese and Co ca ro in Vietnamese.
+
+In this game, the person who gets the first Five marks in a line wins.
+
+The bot is implemented using the Minimax algorithm.
+
+The game is created using React, CSS, Node.js, Express and MongoDB.
+
+The game can be played at: http://cocarogame.herokuapp.com/
+
+Source: <a href="https://github.com/longm89/gomoku_game">Gomoku game </a>
