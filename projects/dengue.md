@@ -4,7 +4,7 @@ type: project
 image: img/thai_corner/thai_corner.png
 title: Dengue Forecasting
 # All dates must be YYYY-MM-DD format!
-date: 2022
+date: 2021
 labels:
   - React
   - React-Bootstrap
@@ -12,12 +12,10 @@ labels:
   - Express
   - MongoDB
 
-summary: The purpose of the project is to predict the number of dengue cases in
-two cities, San Juan and Iquitos for each week, using environmental and
-climate variables.
+summary: An online Thai restaurant application.
 ---
 
-<img class="img-fluid" src="..img/dengue.png">
+<img class="img-fluid" src="../img/thai_corner/thai_corner.png">
 
 The code and the raw and clean data for the project could be found in:
 <https://github.com/longm89/Dengue_prediction>
