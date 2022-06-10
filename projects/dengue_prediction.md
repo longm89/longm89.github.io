@@ -13,6 +13,7 @@ labels:
   - Boosting
   - SARIMA 
   - Aggregation 
+
 summary: The purpose of the project is to predict the number of dengue cases in
 two cities, San Juan and Iquitos for each week, using environmental and
 climate variables.
