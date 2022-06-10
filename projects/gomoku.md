@@ -26,4 +26,4 @@ The game is created using React, CSS, Node.js, Express and MongoDB.
 
 The game can be played at: <a href = "http://cocarogame.herokuapp.com/" target="_blank">http://cocarogame.herokuapp.com/</a>
 
-Source: <a href="https://github.com/longm89/gomoku_game">Gomoku game </a>
+Source: <a href="https://github.com/longm89/gomoku_game" target="_blank">https://github.com/longm89/gomoku_game </a>
