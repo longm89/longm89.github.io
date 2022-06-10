@@ -1,7 +1,7 @@
 ---
 layout: project
 type: project
-image: img/img/dengue_prediction_files/dengue.png
+image: img/dengue_prediction_files/dengue.png
 title: Dengue Forecasting
 # All dates must be YYYY-MM-DD format!
 date: 2022
@@ -18,6 +18,8 @@ summary: The purpose of the project is to predict the number of dengue cases in
 two cities, San Juan and Iquitos for each week, using environmental and
 climate variables.
 ---
+
+<img class="img-fluid" src="..img/dengue_prediction_files/dengue.png">
 
 The code and the raw and clean data for the project could be found in:
 <https://github.com/longm89/Dengue_prediction>
