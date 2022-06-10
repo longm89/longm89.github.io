@@ -6,10 +6,8 @@ title: Online Thai restaurant
 # All dates must be YYYY-MM-DD format!
 date: 2021
 labels:
-  - Javascript
   - React
   - React-Bootstrap
-  - CSS
   - Node.js
   - Express
   - MongoDB

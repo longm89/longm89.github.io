@@ -6,13 +6,11 @@ title: Gomoku game
 # All dates must be YYYY-MM-DD format!
 date: 2021
 labels:
-  - Javascript
   - React
   - CSS
   - Node.js
   - Express
   - MongoDB
-  - GitHub
 summary: A board game, called Gomoku in Japanese and Co ca ro in Vietnamese.
 ---
 
