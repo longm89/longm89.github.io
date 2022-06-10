@@ -13,7 +13,7 @@ labels:
   - SARIMA
   - Aggregation
 
-summary: Predicting the number of dengue cases in San Juan and Iquitos for each week, using environmental and climate variables.
+summary: Predicting the number of dengue cases in San Juan and Iquitos using environmental variables.
 ---
 
 <img class="img-fluid" src="../img/dengue_prediction_files/dengue_image.png">
