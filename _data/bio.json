@@ -60,7 +60,7 @@
   "work": [
     {
       "company": "Groupe Renault",
-      "position": "Internship: Data Analyst",
+      "position": "Internship: Data Scientist",
       "website": "",
       "startDate": "2022-03-01",
       "endDate": "2022-08-31",
@@ -87,7 +87,7 @@
       "summary": "Doing research and teaching",
       "highlights": [
         "Doing research in Geometry and Number theory.", 
-        "Teaching undergraduate courses in Linear algebra and Analysis."
+        "Teaching undergraduate courses in Linear Algebra and Analysis."
       ]
     },
     {
@@ -98,7 +98,7 @@
       "summary": "Doing research and teaching",
       "highlights": [
         "Doing research in Geometry and Number theory.", 
-        "Teaching undergraduate exercise sessions in Linear algebra and Analysis."
+        "Teaching undergraduate exercise sessions in Linear Algebra and Analysis."
       ]
     }
   ],
@@ -108,6 +108,12 @@
       "date": "2013-2015",
       "awarder": "European Union",
       "summary": "Scholarships awarded to selected students to study at the Master levels in Europe."
+    },
+    {
+      "title": "Rank 7/50 for teams",
+      "date": "2009",
+      "awarder": "ACM-ICPC",
+      "summary": "International Programming Contests for college students."
     },
     {
       "title": "First prize",
@@ -121,5 +127,5 @@
     { "name": "Reading" },
     { "name": "Cooking" },
     { "name": "Classical music" }
-  ],
+  ]
 }
