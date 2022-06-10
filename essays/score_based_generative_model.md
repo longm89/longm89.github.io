@@ -10,8 +10,6 @@ labels:
   - Deep learning
 ---
 
-<img width="200px" class="rounded float-start pe-4" src="../img/">
-
 # Introduction
 In the article Score-based generative modeling through stochastic differential equations, the authors propose a new method of using stochastic differential equations (SDE) to smoothly transform a complex data distribution to a known prior distribution by slowly injecting noise. Their corresponding reverse-time SDEs transform the prior distribution back into the data distribution by slowly removing the noise. Their work generalizes two previous approaches: Score matching with Langevin dynamics (SMLD) and Denoising diffusion probabilistic modeling (DDPM), which in their framework, correspond to discretization of two different SDEs. The main idea in these methods is to estimate the time-dependent gradients (scores) of the perturbed data distribution with neural networks, and then use these scores to draw samples using numerical inverse SDEs solvers. In addition, they propose a new method of Predictor-Corrector sampling that improves the sample quality.  They also link their inverse SDEs with neural ODEs, enabling exact likelihood computation and improving sampling efficiency. Finally, their score-based models allow them to solve inverse problems such as class-conditional generation, image inpainting and colorization. In the following, we first summarize their findings and then explain the experiments. 
 
