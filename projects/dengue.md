@@ -1,20 +1,24 @@
 ---
 layout: project
 type: project
-image: img/gomoku/gomoku_game.png
-title: Gomoku game
+image: img/dengue.png
+title: Dengue Forecasting
 # All dates must be YYYY-MM-DD format!
-date: 2021
+date: 2022
 labels:
-  - React
-  - CSS
-  - Node.js
-  - Express
-  - MongoDB
-summary: A board game, called Gomoku in Japanese and Co ca ro in Vietnamese.
+  - R
+  - GAM Model
+  - Decision Tree
+  - Random Forest
+  - Boosting
+  - Aggregation
+  - SARIMA Model
+summary: The purpose of the project is to predict the number of dengue cases in
+two cities, San Juan and Iquitos for each week, using environmental and
+climate variables.
 ---
 
-<img class="img-fluid" src="..img/dengue_prediction_files/dengue.png">
+<img class="img-fluid" src="..img/dengue.png">
 
 The code and the raw and clean data for the project could be found in:
 <https://github.com/longm89/Dengue_prediction>
