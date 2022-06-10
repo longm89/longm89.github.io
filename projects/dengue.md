@@ -1,21 +1,22 @@
 ---
 layout: project
 type: project
-image: img/thai_corner/thai_corner.png
+image: img/dengue_prediction_files/dengue.png
 title: Dengue Forecasting
 # All dates must be YYYY-MM-DD format!
-date: 2021
+date: 2022
 labels:
-  - React
-  - React-Bootstrap
-  - Node.js
-  - Express
-  - MongoDB
+  - R
+  - GAM
+  - Decision Tree/Random Forest
+  - Gradient Boosting
+  - SARIMA
+  - Aggregation
 
-summary: An online Thai restaurant application.
+summary: Predicting the number of dengue cases in San Juan and Iquitos for each week, using environmental and climate variables.
 ---
 
-<img class="img-fluid" src="../img/thai_corner/thai_corner.png">
+<img class="img-fluid" src="../img/dengue_prediction_files/dengue.png">
 
 The code and the raw and clean data for the project could be found in:
 <https://github.com/longm89/Dengue_prediction>
