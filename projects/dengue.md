@@ -8,7 +8,8 @@ date: 2022
 labels:
   - R
   - GAM
-  - Decision Tree/Random Forest
+  - Decision Tree
+  - Random Forest
   - Gradient Boosting
   - SARIMA
   - Aggregation
