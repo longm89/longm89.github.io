@@ -1,7 +1,7 @@
 ---
 layout: project
 type: project
-image: img/dengue_prediction_files/dengue.png
+image: img/dengue_prediction_files/dengue_image.png
 title: Dengue Forecasting
 date: 2022
 labels:
@@ -16,7 +16,7 @@ labels:
 summary: Predicting the number of dengue cases in San Juan and Iquitos for each week, using environmental and climate variables.
 ---
 
-<img class="img-fluid" src="../img/dengue_prediction_files/dengue.png">
+<img class="img-fluid" src="../img/dengue_prediction_files/dengue_image.png">
 
 The code and the raw and clean data for the project could be found in:
 <https://github.com/longm89/Dengue_prediction>
