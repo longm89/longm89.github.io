@@ -1,18 +1,17 @@
 ---
 layout: project
 type: project
-image: img/dengue.png
+image: img/thai_corner/thai_corner.png
 title: Dengue Forecasting
 # All dates must be YYYY-MM-DD format!
 date: 2022
 labels:
-  - R
-  - GAM Model
-  - Decision Tree
-  - Random Forest
-  - Boosting
-  - Aggregation
-  - SARIMA Model
+  - React
+  - React-Bootstrap
+  - Node.js
+  - Express
+  - MongoDB
+
 summary: The purpose of the project is to predict the number of dengue cases in
 two cities, San Juan and Iquitos for each week, using environmental and
 climate variables.
