@@ -8,6 +8,8 @@ published: true
 labels:
   - Generative Model
   - Deep learning
+  - Paper summary
+  - Code experiment
 ---
 
 # Introduction
