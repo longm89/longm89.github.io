@@ -3,7 +3,6 @@ layout: project
 type: project
 image: img/dengue_prediction_files/dengue.png
 title: Dengue Forecasting
-# All dates must be YYYY-MM-DD format!
 date: 2022
 labels:
   - R
