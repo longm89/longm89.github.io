@@ -16,7 +16,7 @@ summary: A board game, called Gomoku in Japanese and Co ca ro in Vietnamese.
 
 <img class="img-fluid" src="../img/gomoku/gomoku_game.png">
 
-This is a board game, called Gomoku in Japanese and Co ca ro in Vietnamese.
+The board game is called Gomoku in Japanese and Co ca ro in Vietnamese.
 
 In this game, the person who gets the first Five marks in a line wins.
 
