@@ -15,12 +15,9 @@ labels:
   - Aggregation 
 summary: The purpose of the project is to predict the number of dengue cases in
 two cities, San Juan and Iquitos for each week, using environmental and
-climate variables. The challenge was organized in 2015 by several
-departments in the U.S. Federal Government, with the support of the
-Pandemic Prediction and Forecasting Science and Technology Interagency
-Working Group under the National Science and Technology Council
-(<https://dengueforecasting.noaa.gov/>).
+climate variables.
 ---
+
 The code and the raw and clean data for the project could be found in:
 <https://github.com/longm89/Dengue_prediction>
 
