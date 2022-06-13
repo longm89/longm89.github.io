@@ -143,47 +143,6 @@
       </div>
     </div>
 
-      <div class="row pt-4 align-items-start">
-        <div class="col-lg-3">
-          <h1 class="display-6 text-start m-0">Activities</h1>
-        </div>
-        <div class="col-lg-9">
-          {% for entry in site.data.bio.volunteer %}
-          <div class="row mb-3">
-            <div class="col-9">
-              <p class="mb-0"><b>{{ entry.position }}{% if entry.organization and (entry.organization != "") %}, {{ entry.organization }}{% endif %}</b></p>
-              <p class="mb-0"><a href="{{ entry.website }}">{{ entry.website | remove: "http://" | remove: "https://" }}</a></p>
-              <p class="mb-0">{{ entry.summary }}</p>
-              {% if entry.highlights %}
-                <ul>
-                {% for highlight in entry.highlights %}
-                  <li>{{ highlight }}</li>
-                {% endfor %}
-              </ul>
-              {% endif %}
-            </div>
-            <div class="col-3">
-              <p class="m-0 text-end">
-                {% if entry.startDate %}
-                  {{ entry.startDate | date: "%B %Y" }}
-                {% endif %}
-                {% if entry.startDate and entry.startDate != '' and entry.endDate and entry.endDate != '' %}
-                -
-                {% endif %}
-                {% if entry.endDate %}
-                  {% if entry.endDate != "Present" %}
-                    {{ entry.endDate | date: "%B %Y" }}
-                  {% else %}
-                    {{ entry.endDate | date: "%B %Y"}}
-                  {% endif %}
-                {% endif %}
-              </p>
-            </div>
-          </div>
-          {% endfor %}
-        </div>
-      </div>
-
     {% if site.data.bio.awards %}
     <div class="row pt-4 align-items-start">
       <div class="col-lg-3">
