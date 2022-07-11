@@ -6,7 +6,7 @@
     "email": "long.mai@imj-prg.fr",
     "phone": "+33 641400307",
     "website": "https://longm89.github.io",
-    "summary": "Passionate about solving industrial technical problems using data, I am looking for a job as a Machine Learning Engineer.",
+    "summary": "Passionate about solving industrial technical problems using data, I am looking for a job as a Data Scientist/Machine Learning Engineer.",
     "location": { "address": "", "postalCode": "75013", "city": "Paris", "countryCode": "FR", "region": "Ile-de-France" },
     "profiles": [
       { "network": "github", "username": "longm89", "url": "http://github.com/longm89" },
@@ -23,7 +23,7 @@
   "skills": [
     {
       "name": "Languages and Frameworks",
-      "keywords": [ "R", "Python", "Javascript", "Numpy", "Pandas", "Scikit Learn", "Pytorch", "Plotly"]
+      "keywords": [ "SQL", "R", "Python", "Javascript", "Numpy", "Pandas", "Scikit Learn", "Pytorch", "Plotly"]
     }
   ],
   "education": [
