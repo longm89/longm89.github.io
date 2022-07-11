@@ -4,7 +4,7 @@ type: essay
 title: Score-Based Generative Modeling through Stochastic Differential Equations
 # All dates must be YYYY-MM-DD format!
 date: 2022-06-10
-published: false
+published: true
 labels:
   - Generative Model
   - Deep learning
