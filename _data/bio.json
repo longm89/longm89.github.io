@@ -1,0 +1,131 @@
+{
+  "basics": {
+    "name": "Mai Tien Long",
+    "label": "Aspiring Data Scientist/Machine Learning Engineer",
+    "picture": "./img/profile_photo.jpg",
+    "email": "long.mai@imj-prg.fr",
+    "phone": "+33 641400307",
+    "website": "https://longm89.github.io",
+    "summary": "Passionate about solving industrial technical problems using data, I am looking for a job as a Data Scientist/Machine Learning Engineer.",
+    "location": { "address": "", "postalCode": "75013", "city": "Paris", "countryCode": "FR", "region": "Ile-de-France" },
+    "profiles": [
+      { "network": "github", "username": "longm89", "url": "http://github.com/longm89" },
+      { "network": "linkedin", "username": "longm89", "url": "http://linkedin.com/in/longm89" }
+    ]
+  },
+  "interests": [
+    { "name": "Problem Solving" },
+    { "name": "Programming" },
+    { "name": "Statistics" },
+    { "name": "Machine Learning" },
+    { "name": "Deep Learning." }
+  ],
+  "skills": [
+    {
+      "name": "Languages and Frameworks",
+      "keywords": [ "SQL", "R", "Python", "Javascript", "Numpy", "Pandas", "Scikit Learn", "Pytorch", "Plotly"]
+    }
+  ],
+  "education": [
+    {
+      "institution": "University of Paris Saclay, Gif-sur-Yvette, FR",
+      "area": "Statistics and Machine Learning (expected September, 2022)",
+      "website": "https://master-statml.imo.universite-paris-saclay.fr/",
+      "studyType": "Master",
+      "startDate": "2021-09-15",
+      "endDate": "Present",
+      "courses": [
+      ]    
+    },
+    {
+      "institution": "University of Paris Sud XI, France  -  University of Padova, Italy",
+      "area": "Algebra, Geometry, Number theory",
+      "website": "algant.eu",
+      "studyType": "ALGANT Erasmus Mundus joint Master",
+      "startDate": "2013-09-01",
+      "endDate": "2015-05-31",
+      "courses": [
+      ]    
+    },
+    {
+      "institution": "Manhattanville College, USA",
+      "area": "Mathematics",
+      "studyType": "Bachelor of Arts",
+      "startDate": "2009-08-15",
+      "endDate": "2013-05-31",
+      "courses": [
+      ]    
+    }
+  ],
+  "work": [
+    {
+      "company": "Groupe Renault",
+      "position": "Internship in Data Science",
+      "website": "",
+      "startDate": "2022-03-01",
+      "endDate": "2022-08-31",
+      "summary": "Analyse data on automotive seats",
+      "highlights": [
+        "Analyse data on automotive seats using causal inference, machine learning models and high dimensional visualisation tools."
+      ]
+    },
+    {
+      "company": "FPT-Software",
+      "position": "Short-term contract: AI Engineer",
+      "startDate": "2021-06-15",
+      "endDate": "2021-09-15",
+      "summary": "",
+      "highlights": [
+        "Read research papers and train models to predict quality of images using Pytorch."
+      ]
+    }, 
+    {
+      "company": "University of Paris-Diderot, France",
+      "position": "Teaching Assistant",
+      "startDate": "2018-09-01",
+      "endDate": "2020-08-31",
+      "summary": "Doing research and teaching",
+      "highlights": [
+        "Doing research in Geometry and Number theory.", 
+        "Teaching undergraduate courses in Linear Algebra and Analysis."
+      ]
+    },
+    {
+      "company": "Sorbonne University, France",
+      "position": "PhD Candidate",
+      "startDate": "2015-09-01",
+      "endDate": "2020-08-31",
+      "summary": "Doing research and teaching",
+      "highlights": [
+        "Doing research in Geometry and Number theory.", 
+        "Teaching undergraduate exercise sessions in Linear Algebra and Analysis."
+      ]
+    }
+  ],
+  "awards": [
+    {
+      "title": "ALGANT Erasmus Mundus Master Fellowship",
+      "date": "2013-2015",
+      "awarder": "European Union",
+      "summary": "Scholarships awarded to selected students to study at the Master levels in Europe."
+    },
+    {
+      "title": "Rank 7th/50 for teams",
+      "date": "2009-10-18",
+      "awarder": "ACM-ICPC Greater New York Region",
+      "summary": "International Programming Contests for college students."
+    },
+    {
+      "title": "First prize",
+      "date": "2007-05-31",
+      "awarder": "Ministry of education, Vietnam",
+      "summary": "Vietnamese National Olympiad in Informatics for highschool students."
+    }
+  ],
+  "Hobbies": [
+    { "name": "Swimming" },
+    { "name": "Reading" },
+    { "name": "Cooking" },
+    { "name": "Classical music" }
+  ]
+}

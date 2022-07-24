@@ -1,0 +1,1255 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="title" content="Dengue Forecasting | Mai Tien Long | Professional Portfolio">
+    <meta name="description" content="">
+    <meta name="image" content="https://longm89.github.io/img/image.jpg">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Mai Tien Long | Professional Portfolio">
+    <meta property="og:url" content="https://longm89.github.io/projects/dengue.html">
+    <meta property="og:title" content="Dengue Forecasting | Mai Tien Long | Professional Portfolio">
+    <meta property="og:description" content="">
+    <meta property="og:image" content="./img/profile_photo.jpg">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/techfolio-theme/lime.css">
+    <link rel="stylesheet" type="text/css" href="/css/rouge/github.css">
+    <!-- Load MathJax if 'mathjax: true' is found in your _config.yml. -->
+    
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML">
+    </script>
+    
+
+    <title>Dengue Forecasting | Mai Tien Long | Professional Portfolio</title>
+  </head>
+  <body>
+  <header class="navbar navbar-expand navbar-light bg-light bg-gradient border-bottom">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">Mai Tien Long</a>
+    <div class="ms-auto">
+      <ul class="navbar-nav mb-2 mb-lg-0">
+        <a class="nav-link" href="/#projects">Projects</a>
+        <a class="nav-link" href="/#essays">Essays</a>
+        <a class="nav-link" href="/bio/">Resume</a>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<div class="container py-4">
+  <h1 class="display-4">Dengue Forecasting</h1>
+ <p><img class="img-fluid" src="../img/dengue_prediction_files/dengue_image.png" /></p>
+
+<p>The code and the raw and clean data for the project could be found in:
+<a href="https://github.com/longm89/Dengue_prediction">https://github.com/longm89/Dengue_prediction</a></p>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>The purpose of the project is to predict the number of dengue cases in
+two cities, San Juan and Iquitos for each week, using environmental and
+climate variables. The challenge was organized in 2015 by several
+departments in the U.S. Federal Government, with the support of the
+Pandemic Prediction and Forecasting Science and Technology Interagency
+Working Group under the National Science and Technology Council
+(<a href="https://dengueforecasting.noaa.gov/">https://dengueforecasting.noaa.gov/</a>).</p>
+
+<h4 id="data">Data</h4>
+
+<p>The data for each city consists of:</p>
+
+<ul>
+  <li>Time indicators</li>
+  <li>NOAA’s GHCN daily climate data weather station measurements.</li>
+  <li>PERSIANN satellite precipitation measurements.</li>
+  <li>NOAA’s NCEP Climate Forecast System Reanalysis measurements.</li>
+  <li>Satellite vegetation.</li>
+  <li>The number of cases for each week.</li>
+</ul>
+
+<p>Additionally, we downloaded the environmental, social and economic data
+from WorldBank and we chose several parameters that might explain the
+number of cases:</p>
+
+<ul>
+  <li>forest_area_sq_km</li>
+  <li>Total population</li>
+  <li>population_density_people_per_sq_km_of_land_area</li>
+  <li>gdp_current_us</li>
+  <li>employment_to_population_average</li>
+  <li>Population age percentage: 0 - 9, 10 - 20, 20 - 60, 60+</li>
+</ul>
+
+<p>Another data that can affect the spread of the disease is the number of
+migration, however, we couldn’t find the data.</p>
+
+<h4 id="methods">Methods</h4>
+
+<p>We will model the total number of cases using the following models:</p>
+
+<ul>
+  <li>Model GAM with the Negative Binomial Distribution family</li>
+  <li>Regression Tree</li>
+  <li>Random Forest</li>
+  <li>Times Series (ARIMA)</li>
+  <li>Gradient Tree Boosting</li>
+  <li>Expert Aggregation (EG)</li>
+</ul>
+
+<p>As our data is count data, we will be using the Poisson distribution and
+the Negative Binomial Distribution family when we apply the models GAM
+and Gradient Tree Boosting. The metric to judge the quality of the
+models in the competition is the MAE score, but we will also look at R
+squared, deviance explained, ACF, PACF graphs and plot of the residuals.
+In general, our out-of the box models achieve good results without much
+tuning. There are many places where the results could be improved. For
+example, there are some models with residuals of mean 0, but with
+changes in the variance, we could have applied an ARIMA model to the
+residuals of the model GAM, or we could fine-tune more the parameters of
+the models and do more feature engineering.</p>
+
+<h2 id="data-wrangling-and-exploration">Data Wrangling and Exploration</h2>
+
+<h4 id="data-wrangling">Data Wrangling</h4>
+
+<h5 id="data-from-the-challenge">Data from the challenge</h5>
+
+<p>The data for each city consists of:</p>
+
+<ul>
+  <li>Time indicators:
+    <ul>
+      <li>week_start_date</li>
+      <li>weekofyear</li>
+      <li>year</li>
+    </ul>
+  </li>
+  <li>NOAA’s GHCN daily climate data weather station measurements.
+    <ul>
+      <li>station_max_temp_c - maximum temperature</li>
+      <li>station_min_temp_c - minimum temperature</li>
+      <li>station_avg_temp_c - average temperature</li>
+      <li>station_precip_mm - total precipitation</li>
+      <li>station_diur_temp_rng_c - diurnal temperature range</li>
+    </ul>
+  </li>
+  <li>PERSIANN satellite precipitation measurements.
+    <ul>
+      <li>precipitation_amt_mm - total precipitation</li>
+    </ul>
+  </li>
+  <li>NOAA’s NCEP Climate Forecast System Reanalysis measurements.
+    <ul>
+      <li>reanalysis_sat_precip_amt_mm – Total precipitation</li>
+      <li>reanalysis_dew_point_temp_k – Mean dew point temperature</li>
+      <li>reanalysis_air_temp_k – Mean air temperature</li>
+      <li>reanalysis_relative_humidity_percent – Mean relative humidity</li>
+      <li>reanalysis_specific_humidity_g_per_kg – Mean specific
+humidity</li>
+      <li>reanalysis_precip_amt_kg_per_m2 – Total precipitation</li>
+      <li>reanalysis_max_air_temp_k – Maximum air temperature</li>
+      <li>reanalysis_min_air_temp_k – Minimum air temperature</li>
+      <li>reanalysis_avg_temp_k – Average air temperature</li>
+      <li>reanalysis_tdtr_k – Diurnal temperature range</li>
+    </ul>
+  </li>
+  <li>Satellite vegetation: Normalized difference vegetation index
+    <ul>
+      <li>ndvi_se – Pixel southeast of city centroid</li>
+      <li>ndvi_sw – Pixel southwest of city centroid</li>
+      <li>ndvi_ne – Pixel northeast of city centroid</li>
+      <li>ndvi_nw – Pixel northwest of city centroid</li>
+    </ul>
+  </li>
+</ul>
+
+<p>We separate the csv file, including environmental data of the two
+countries, into one file for each country and add the missing values
+using spline interpolation.</p>
+
+<h5 id="data-from-worldbank">Data from WorldBank</h5>
+
+<p>We download the data from WorldBank, clean and select important
+variables that might contribute to the prediction of the number of
+Dengue cases:<br />
+* Total population<br />
+* population_density_people_per_sq_km_of_land_area<br />
+* forest_area_sq_km<br />
+* gdp_current_us<br />
+* employment_to_population_average<br />
+* Population age percentage: 0 - 9, 10 - 20, 20 - 60, 60+</p>
+
+<p>These two sources of data form the following groups:<br />
+* Time of the year<br />
+* Climate variables<br />
+* Total population<br />
+* Population density<br />
+* Population age<br />
+* Economical condition</p>
+
+<p>The code for cleaning the data could be found in:
+Dengue_prediction/R/wrangle-data.R. We import the clean data:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># import the cleaned data
+load("rdas/merged_iq_train.rda")
+load("rdas/merged_sj_train.rda")
+</code></pre></div></div>
+
+<h5 id="features-engineering">Features engineering</h5>
+
+<p>In later sections, we will apply classical machine learning models such
+that Generalized Additive Model, Regression Tree, Random Forest, Arima
+model. As the number of cases is a time series: the number of cases of a
+week is highly influenced by the number of cases of the previous week,
+in order to have independent residual errors, we will add lag variables
+to reduce their auto-correlation. Our model will be able to use the
+number of cases from the past weeks to predict the number of cases of
+the current week.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Add the lagging variables by 1-5 weeks
+
+#for Iquitos
+merged_iq_train &lt;- merged_iq_train %&gt;%
+  mutate(lag_1_total_cases = lag(total_cases))
+merged_iq_train[1, "lag_1_total_cases"] = 0
+merged_iq_train &lt;- merged_iq_train %&gt;%
+  mutate(lag_2_total_cases = lag(lag_1_total_cases))
+merged_iq_train[1:2, "lag_2_total_cases"] = 0
+merged_iq_train &lt;- merged_iq_train %&gt;%
+  mutate(lag_3_total_cases = lag(lag_2_total_cases))
+merged_iq_train[1:3, "lag_3_total_cases"] = 0
+merged_iq_train &lt;- merged_iq_train %&gt;%
+  mutate(lag_4_total_cases = lag(lag_3_total_cases))
+merged_iq_train[1:4, "lag_4_total_cases"] = 0
+merged_iq_train &lt;- merged_iq_train %&gt;%
+  mutate(lag_5_total_cases = lag(lag(lag_3_total_cases)))
+merged_iq_train[1:5, "lag_5_total_cases"] = 0
+
+# for San Juan
+merged_sj_train &lt;- merged_sj_train %&gt;%
+  mutate(lag_1_total_cases = lag(total_cases))
+merged_sj_train[1, "lag_1_total_cases"] = 0
+merged_sj_train &lt;- merged_sj_train %&gt;%
+  mutate(lag_2_total_cases = lag(lag_1_total_cases))
+merged_sj_train[1:2, "lag_2_total_cases"] = 0
+merged_sj_train &lt;- merged_sj_train %&gt;%
+  mutate(lag_3_total_cases = lag(lag_2_total_cases))
+merged_sj_train[1:3, "lag_3_total_cases"] = 0
+merged_sj_train &lt;- merged_sj_train %&gt;%
+  mutate(lag_4_total_cases = lag(lag_3_total_cases))
+merged_sj_train[1:4, "lag_4_total_cases"] = 0
+merged_sj_train &lt;- merged_sj_train %&gt;%
+  mutate(lag_5_total_cases = lag(lag(lag_3_total_cases)))
+merged_sj_train[1:5, "lag_5_total_cases"] = 0
+</code></pre></div></div>
+
+<p>We add a dummy variable Time term to model trend in the data over time.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># We add the Time term 
+merged_iq_train$Time &lt;- seq.int(nrow(merged_iq_train))
+merged_sj_train$Time &lt;- seq.int(nrow(merged_sj_train))
+</code></pre></div></div>
+
+<h4 id="data-exploration">Data Exploration</h4>
+
+<h5 id="visualising-the-number-of-cases-over-the-year">Visualising the number of cases over the year:</h5>
+
+<p>For Iquitos:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>######## For Iquitos
+# Define Start and end times for the subset as R objects that are the time class
+startTime_iq &lt;- as.Date("2001-01-01")
+endTime_iq &lt;- as.Date("2009-12-24")
+# create a start and end time R object
+limits_iq &lt;- c(startTime_iq, endTime_iq)
+iq_weekly_cases &lt;- ggplot(merged_iq_train, aes(week_start_date, total_cases)) +
+  geom_line(na.rm=TRUE) + 
+  geom_ma(ma_fun = SMA, n = 52) + # moving average with period of 52 weeks to detect trend
+  ggtitle("Total number of cases from 2001 - 2010 in Iquitos") +
+  xlab("Date") + ylab("Total number of cases")
+# format x-axis: dates
+iq_weekly_cases_time_series &lt;- iq_weekly_cases + 
+  (scale_x_date(limits = limits_iq,
+                breaks = date_breaks("1 year"),
+                labels = date_format("%b %y")))
+iq_weekly_cases_time_series
+</code></pre></div></div>
+
+<p><img src="../img/dengue_prediction_files/figure-markdown_strict/unnamed-chunk-6-1.png" alt="" /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># looking for seasonality over the week of the year
+merged_iq_train %&gt;% filter("2001" &lt;= year &amp; year &lt;= "2009") %&gt;% 
+  ggplot(aes(x = weekofyear, y = total_cases, color = factor(year))) +
+  geom_line()
+</code></pre></div></div>
+
+<p><img src="../img/dengue_prediction_files/figure-markdown_strict/unnamed-chunk-6-2.png" alt="" /></p>
+
+<p>The blue dot line is the moving average of 52 weeks, indicating the
+trend in the series. We also plot the number of cases over the year, and
+we see that there are more cases on weeks 1-10 and weeks 40-52.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># For San Juan
+# create a start and end time R object
+startTime_sj &lt;- as.Date("1990-04-30")
+endTime_sj &lt;- as.Date("2000-04-22")
+
+limits_sj &lt;- c(startTime_sj, endTime_sj)
+sj_weekly_cases &lt;- ggplot(merged_sj_train, aes(week_start_date, total_cases)) +
+  geom_line(na.rm=TRUE) + 
+  geom_ma(ma_fun = SMA, n = 52) + # moving average with period of 52 weeks to detect trend
+  ggtitle("Total number of cases from 1990 - 2008 in San Juan") +
+  xlab("Date") + ylab("Total number of cases")
+# format x-axis: dates
+sj_weekly_cases_time_series &lt;- sj_weekly_cases + 
+  (scale_x_date(limits = limits_sj,
+                breaks = date_breaks("1 year"),
+                labels = date_format("%b %y")))
+
+sj_weekly_cases_time_series
+</code></pre></div></div>
+
+<p><img src="../img/dengue_prediction_files/figure-markdown_strict/unnamed-chunk-7-1.png" alt="" /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># look for seasonality, depending on the week of the year
+merged_sj_train %&gt;% filter("1991" &lt;= year &amp; year &lt;= "1999") %&gt;% 
+  ggplot(aes(x = weekofyear, y = total_cases, color = factor(year))) +
+  geom_line()
+</code></pre></div></div>
+
+<p><img src="../img/dengue_prediction_files/figure-markdown_strict/unnamed-chunk-7-2.png" alt="" /></p>
+
+<p>We do similar plots for San Juan. There’s also trend in the data. There
+are more cases on weeks 30-52.<br />
+In the following, we draw the two histograms of the number of cases and
+look at their mean and variance:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># draw the two histograms
+iq_histogram &lt;- ggplot(data=merged_iq_train, aes(total_cases)) +
+  geom_histogram(aes(y =..density..), fill = "orange") +
+  geom_density() +
+  ggtitle("Histogram of total cases in Iquitos ")
+
+sj_histogram &lt;- ggplot(data=merged_sj_train, aes(total_cases)) +
+  geom_histogram(aes(y =..density..), fill = "orange") +
+  geom_density() + 
+  ggtitle("Histogram of total cases in San Juan ") 
+
+grid.arrange(iq_histogram, sj_histogram, ncol=2)
+</code></pre></div></div>
+
+<p><img src="../img/dengue_prediction_files/figure-markdown_strict/unnamed-chunk-8-1.png" alt="" /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mean(merged_iq_train$total_cases) # mean of Iquitos
+
+## [1] 7.565385
+
+var(merged_iq_train$total_cases) # variance of Iquitos
+
+## [1] 115.8955
+
+mean(merged_sj_train$total_cases) # mean of San Juan
+
+## [1] 34.18056
+
+var(merged_sj_train$total_cases) # variance of San Juan
+
+## [1] 2640.045
+</code></pre></div></div>
+
+<p>The number of cases for both cities do not follow Gaussian distributions
+and are natural numbers. Therefore, we will assume that they follow
+Poisson distribution or Negative Binomial distribution, and in
+particular Negative Binomial distribution as the mean is much smaller
+than the variance. In fact, the Poisson distribution can be interpreted
+as a special case of the Negative Binomial distribution when the
+parameter <em>r</em> → ∞ and is used as a way to model an over-dispersed
+Poisson distribution.</p>
+
+<h2 id="modeling-and-prediction">Modeling and Prediction</h2>
+
+<h3 id="preparing-the-data-for-training-and-testing">Preparing the data for training and testing</h3>
+
+<p>In the following, we will split the data into a training set and a
+testing set. As our data is time series, instead of a random selection
+of each set, we split our time series with respect to chronology, in
+order to train our models on the past data, and test the predictions on
+the future.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>##################Split train and test sets
+# For Iquitos
+iq_train_size &lt;- round(nrow(merged_iq_train) * 0.8)
+iq_train &lt;- head(merged_iq_train, iq_train_size)
+iq_test &lt;- tail(merged_iq_train, nrow(merged_iq_train) - iq_train_size)
+# For San Juan
+sj_train_size &lt;- round(nrow(merged_sj_train) * 0.8)
+sj_train &lt;- head(merged_sj_train, sj_train_size)
+sj_test &lt;- tail(merged_sj_train, nrow(merged_sj_train) - sj_train_size)
+</code></pre></div></div>
+
+<p>The MAE score will be used, as in the competition, to evaluate different
+models.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mae&lt;-function(y, ychap)
+{
+  return(round(mean(abs(y-ychap)), digit = 2))
+}
+</code></pre></div></div>
+
+<h3 id="generalized-linear-models-with-negative-binomial-distribution-family">Generalized Linear Models with Negative Binomial Distribution family.</h3>
+
+<h3 id="gam-models">GAM models</h3>
+
+<p>We first fit a GAM model with the Negative Binomial distribution family,
+using temperature features, the population feature and moreover, Time,
+weekofyear to model trend and seasonality. After that, we look at
+another model, this time adding auto-regressive features such as lag
+variables.</p>
+
+<p>For Iquitos:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>g1 &lt;- gam(total_cases ~ s(reanalysis_specific_humidity_g_per_kg) + s(reanalysis_dew_point_temp_k) + s(ndvi_sw)
+  + s(population_total) 
+  + s(Time) + s(weekofyear) 
+  ,family = nb(), data = iq_train, method = "REML")
+#gam.check(g1)
+summary(g1)
+
+## 
+## Family: Negative Binomial(2.737) 
+## Link function: log 
+## 
+## Formula:
+## total_cases ~ s(reanalysis_specific_humidity_g_per_kg) + s(reanalysis_dew_point_temp_k) + 
+##     s(ndvi_sw) + s(population_total) + s(Time) + s(weekofyear)
+## 
+## Parametric coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  1.10561    0.07046   15.69   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Approximate significance of smooth terms:
+##                                            edf Ref.df  Chi.sq p-value    
+## s(reanalysis_specific_humidity_g_per_kg) 5.502  6.717  20.405 0.00479 ** 
+## s(reanalysis_dew_point_temp_k)           1.003  1.004   2.268 0.13303    
+## s(ndvi_sw)                               2.134  2.708   2.221 0.41128    
+## s(population_total)                      5.991  6.323   1.685 0.94152    
+## s(Time)                                  4.441  4.654   1.014 0.96198    
+## s(weekofyear)                            4.750  5.868 104.960 &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## R-sq.(adj) =  0.414   Deviance explained = 68.7%
+## -REML = 1042.7  Scale est. = 1         n = 416
+
+#plot.gam(g1)
+</code></pre></div></div>
+
+<p>The deviance explained is 68.7%. The variables weekofyear and
+reanalysis_specific_humidity_g_per_kg are significant (with very
+small p-values) in predicting the number of cases. We look at the ACF,
+PACF and the graph of the residuals:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># on train set
+train_ychap &lt;- predict(g1, newdata = iq_train, type = "response")
+# look at ACF and PACF of residuals to see if there's auto-correlation
+par(mfrow=c(1,2))
+acf(iq_train$total_cases - train_ychap)
+pacf(iq_train$total_cases - train_ychap)
+</code></pre></div></div>
+
+<p><img src="../img/dengue_prediction_files/figure-markdown_strict/unnamed-chunk-13-1.png" alt="" /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>startTime_iq &lt;- as.Date("2001-01-01")
+endTime_iq &lt;- as.Date("2009-12-24")
+# create a start and end time R object
+limits_iq &lt;- c(startTime_iq, endTime_iq)
+iq_weekly_cases &lt;- ggplot(iq_train, aes(week_start_date, total_cases - train_ychap)) +
+  geom_line(na.rm=TRUE) + 
+  geom_ma(ma_fun = SMA, n = 52) + # moving average with period of 52 weeks to detect trend
+  ggtitle("Residuals from 2001 - 2010 in Iquitos") +
+  xlab("Date") + ylab("Residual of number of cases")
+iq_weekly_cases
+</code></pre></div></div>
+
+<p><img src="../img/dengue_prediction_files/figure-markdown_strict/unnamed-chunk-13-2.png" alt="" /></p>
+
+<p>There are still a lot of auto-correlations in the data and there’s a
+problem with the variance in the residues. We look at how it fits on the
+testing set and look at the MAE score:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># on test set
+test_ychap &lt;- predict(g1, newdata = iq_test, type = "response")
+
+plot(iq_test$total_cases, type='l')
+lines(test_ychap,col='red')
+</code></pre></div></div>
+
+<p><img src="../img/dengue_prediction_files/figure-markdown_strict/unnamed-chunk-14-1.png" alt="" /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mae(iq_test$total_cases, test_ychap)
+
+## [1] 7.66
+</code></pre></div></div>
+
+<p>One idea to improve the model is to fit a SARIMA model to the residuals.
+In the following, to make things simple, we will just add lag variables
+to improve the model:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>g2 &lt;- gam(total_cases ~ s(reanalysis_specific_humidity_g_per_kg) + s(reanalysis_dew_point_temp_k) + s(ndvi_sw)
+  + s(population_total) 
+  + s(Time) + s(weekofyear) 
+  + s(log(lag_1_total_cases+1)) + s(log(lag_2_total_cases+1))+ s(log(lag_3_total_cases+1))
+  ,family = nb(), data = iq_train, method = "REML")
+#gam.check(g2)
+summary(g2)
+
+## 
+## Family: Negative Binomial(4.892) 
+## Link function: log 
+## 
+## Formula:
+## total_cases ~ s(reanalysis_specific_humidity_g_per_kg) + s(reanalysis_dew_point_temp_k) + 
+##     s(ndvi_sw) + s(population_total) + s(Time) + s(weekofyear) + 
+##     s(log(lag_1_total_cases + 1)) + s(log(lag_2_total_cases + 
+##     1)) + s(log(lag_3_total_cases + 1))
+## 
+## Parametric coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)   1.1096     0.0601   18.46   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Approximate significance of smooth terms:
+##                                            edf Ref.df Chi.sq  p-value    
+## s(reanalysis_specific_humidity_g_per_kg) 5.665  6.873 17.899  0.01297 *  
+## s(reanalysis_dew_point_temp_k)           1.001  1.001  0.650  0.42051    
+## s(ndvi_sw)                               2.139  2.710  3.606  0.22351    
+## s(population_total)                      7.181  7.927 43.288  &lt; 2e-16 ***
+## s(Time)                                  1.003  1.003  9.701  0.00187 ** 
+## s(weekofyear)                            3.621  4.532 24.965 8.71e-05 ***
+## s(log(lag_1_total_cases + 1))            1.001  1.003 48.568  &lt; 2e-16 ***
+## s(log(lag_2_total_cases + 1))            4.337  5.338 30.314 2.01e-05 ***
+## s(log(lag_3_total_cases + 1))            2.681  3.424  7.424  0.09342 .  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## R-sq.(adj) =  0.675   Deviance explained = 78.4%
+## -REML = 973.49  Scale est. = 1         n = 416
+
+#plot.gam(g2)
+
+
+# on train set
+train_ychap &lt;- predict(g2, newdata = iq_train, type = "response")
+# look at ACF and PACF of residuals to see if there's auto-correlation
+par(mfrow=c(1,2))
+par("mar"=c(5, 4, 4, 1))
+acf(iq_train$total_cases - train_ychap)
+pacf(iq_train$total_cases - train_ychap)
+</code></pre></div></div>
+
+<p><img src="../img/dengue_prediction_files/figure-markdown_strict/unnamed-chunk-15-1.png" alt="" /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>startTime_iq &lt;- as.Date("2001-01-01")
+endTime_iq &lt;- as.Date("2009-12-24")
+# create a start and end time R object
+limits_iq &lt;- c(startTime_iq, endTime_iq)
+iq_weekly_cases &lt;- ggplot(iq_train, aes(week_start_date, total_cases - train_ychap)) +
+  geom_line(na.rm=TRUE) + 
+  geom_ma(ma_fun = SMA, n = 52) + # moving average with period of 52 weeks to detect trend
+  ggtitle("Residuals from 2001 - 2010 in Iquitos") +
+  xlab("Date") + ylab("Residual of number of cases")
+iq_weekly_cases
+</code></pre></div></div>
+
+<p><img src="../img/dengue_prediction_files/figure-markdown_strict/unnamed-chunk-16-1.png" alt="" /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># on test set
+par(mfrow=c(1,1))
+test_ychap &lt;- predict(g2, newdata = iq_test, type = "response")
+mae(iq_test$total_cases, test_ychap)
+
+## [1] 5.54
+
+plot(iq_test$total_cases, type='l')
+lines(test_ychap,col='red')
+</code></pre></div></div>
+
+<p><img src="../img/dengue_prediction_files/figure-markdown_strict/unnamed-chunk-16-2.png" alt="" /></p>
+
+<p>The deviance explained is increased to 78.4%, the MAE score is reduced
+to 5.54. The ACF and PACF graphs show that the auto-correlation and
+partial auto-correlation coefficients are small (&lt; 0.15), even though
+we could possibly still fit an ARIMA model to the residuals to imrpove
+more. There’s little trend remaining in the residuals, and there’s still
+a problem with the variance of the residual. The graph fits better on
+the testing data than the previous model.</p>
+
+<h3 id="regression-tree">Regression Tree</h3>
+
+<p>In this section, we look at Regression tree, a simple method that
+doesn’t require any assumption on the distribution of the variables, and
+moreover, gives a way to select variables.</p>
+
+<p>We first look at Iquitos:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>set.seed(123)
+tree_iq &lt;- rpart(formula = total_cases ~ ., 
+                 data = iq_train,
+                 method = "anova")
+rpart.plot(tree_iq)
+</code></pre></div></div>
+
+<p><img src="../img/dengue_prediction_files/figure-markdown_strict/unnamed-chunk-18-1.png" alt="" /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ychap.tree_iq &lt;- predict(tree_iq, newdata = iq_test)
+mae(iq_test$total_cases, ychap.tree_iq)
+
+## [1] 5.49
+
+plot(iq_test$total_cases, type='l')
+lines(ychap.tree_iq,col='red')
+</code></pre></div></div>
+
+<p><img src="../img/dengue_prediction_files/figure-markdown_strict/unnamed-chunk-18-2.png" alt="" /></p>
+
+<p>The MAE score is 5.49. The important features to predict the number of
+cases are the number of cases from the last 1, 2, 4 weeks, the air
+temperature, and the vegetation index ndvi_sw.</p>
+
+<p>For San Juan:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tree_sj &lt;- rpart(formula = total_cases ~ ., 
+                 data = sj_train,
+                 method = "anova")
+rpart.plot(tree_sj)
+</code></pre></div></div>
+
+<p><img src="../img/dengue_prediction_files/figure-markdown_strict/unnamed-chunk-19-1.png" alt="" /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ychap.tree_sj &lt;- predict(tree_sj, newdata = sj_test)
+mae(sj_test$total_cases, ychap.tree_sj)
+
+## [1] 8.95
+
+plot(sj_test$total_cases, type='l')
+lines(ychap.tree_sj,col='red')
+</code></pre></div></div>
+
+<p><img src="../img/dengue_prediction_files/figure-markdown_strict/unnamed-chunk-19-2.png" alt="" /></p>
+
+<p>The MAE score is 8.95. The important features to predict the number of
+cases are the number of cases from the last week and the vegetation
+index ndvi_se.</p>
+
+<h3 id="random-forest">Random Forest</h3>
+
+<p>We fit a random forest model for Iquitos with parameter mtry = 3, the
+number of variables randomly sampled as candidates when forming each
+split when building each tree. The parameter is searched using tuneRF.
+We then look at the MAE score and its prediction graph on test set.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>####### Iquitos
+# tune mtry
+t &lt;- tuneRF(iq_train[,-34], unlist(iq_train[,34]),
+            stepFactor = 0.5,
+            plot = TRUE,
+            ntree = 500,
+            improve = 1e-5)
+
+## mtry = 13  OOB error = 57.54013 
+## Searching left ...
+## mtry = 26    OOB error = 59.37676 
+## -0.03191927 1e-05 
+## Searching right ...
+## mtry = 6     OOB error = 56.79889 
+## 0.01288212 1e-05 
+## mtry = 3     OOB error = 53.96547 
+## 0.04988507 1e-05 
+## mtry = 1     OOB error = 63.86488 
+## -0.1834397 1e-05
+</code></pre></div></div>
+
+<p><img src="../img/dengue_prediction_files/figure-markdown_strict/unnamed-chunk-21-1.png" alt="" /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rf1=randomForest(total_cases~.,ntree=500,data=iq_train, importance = TRUE, mtry = 3)
+rf1
+
+## 
+## Call:
+##  randomForest(formula = total_cases ~ ., data = iq_train, ntree = 500,      importance = TRUE, mtry = 3) 
+##                Type of random forest: regression
+##                      Number of trees: 500
+## No. of variables tried at each split: 3
+## 
+##           Mean of squared residuals: 54.72252
+##                     % Var explained: 50.61
+
+rf1.fitted=predict(rf1,data=iq_train)
+rf1.forecast=predict(rf1,newdata=iq_test)
+mae(iq_test$total_cases,rf1.forecast)
+
+## [1] 5.08
+
+plot(iq_test$total_cases, type='l')
+lines(rf1.forecast,col='red')
+</code></pre></div></div>
+
+<p><img src="../img/dengue_prediction_files/figure-markdown_strict/unnamed-chunk-21-2.png" alt="" /></p>
+
+<p>The variance explained is 50.61%. The MAE score on test set is 5.08,
+better than the MAE score of 5.49 of the tree model. The prediction is
+more robust and more accurate, as expected when comparing with a
+decision tree.</p>
+
+<p>Similarly for San Juan:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>###### San Juan
+rf1=randomForest(total_cases~.,ntree=500,data=sj_train, importance = TRUE, mtry = 13)
+rf1
+
+## 
+## Call:
+##  randomForest(formula = total_cases ~ ., data = sj_train, ntree = 500,      importance = TRUE, mtry = 13) 
+##                Type of random forest: regression
+##                      Number of trees: 500
+## No. of variables tried at each split: 13
+## 
+##           Mean of squared residuals: 247.5671
+##                     % Var explained: 91.81
+
+rf1.forecast=predict(rf1,newdata=sj_test)
+mae(sj_test$total_cases,rf1.forecast)
+
+## [1] 7.55
+
+plot(sj_test$total_cases, type='l')
+lines(rf1.forecast,col='red')
+</code></pre></div></div>
+
+<p><img src="../img/dengue_prediction_files/figure-markdown_strict/unnamed-chunk-22-1.png" alt="" /></p>
+
+<p>The Random Forest model works surprisingly well for San Juan, with
+variance explained = 91.81%. The MAE score on test set is is 7.55.</p>
+
+<h3 id="times-series-arima-model">Times Series (ARIMA model)</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>library(forecast)
+library(RColorBrewer)
+library(magrittr)
+library(dplyr)
+library(geoR)
+</code></pre></div></div>
+
+<p>First, we look at Iquitos. The total number of cases is a time series.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ts_iq&lt;-ts(iq_train$total_cases, frequency=1) 
+par(mfrow=c(1,2))
+plot(ts_iq)
+plot(diff(ts_iq)) # there's a problem with the variance, the series is not stationary
+</code></pre></div></div>
+
+<p><img src="../img/dengue_prediction_files/figure-markdown_strict/unnamed-chunk-24-1.png" alt="" /></p>
+
+<p>After taking the difference of the time series, we see that the mean is
+0, however, the variance changes, hence even after taking the
+difference, the series is not stationary. We could proceed by trying the
+Box Cox transformation to stabilize the variance, or to continue fitting
+an ARIMA model. We first proceed with the Box Cox transformation. For
+this transformation of the series, we use a version with parameters
+lambda1 and lambda2, because our data contains 0.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Two-parameter Box-Cox transform 
+boxcox.transform &lt;- function(x, lambda1, lambda2) {
+  if (lambda1!=0) {
+    return(((x + lambda2) ^ lambda1 - 1) / lambda1)
+  } else {
+    return(log(x + lambda2))
+  }
+}
+
+# Two-parameter inverse Box-Cox function
+boxcox.inv &lt;- function(x, lambda1, lambda2) {
+  if (lambda1!=0) {
+    return((lambda1 * x + 1) ^ (1 / lambda1) - lambda2)
+  } else {
+    return(exp(x) - lambda2)
+  }
+}
+
+lambda_estimates &lt;- boxcoxfit(ts_iq, lambda2 = TRUE) 
+# use boxcox transformation, with 2 lambdas, because the series contains 0
+lambda1 &lt;- lambda_estimates$lambda[1]
+lambda2 &lt;- lambda_estimates$lambda[2]
+
+ts_iq_box_cox_transform &lt;- boxcox.transform(ts_iq, lambda1, lambda2)
+par(mfrow=c(1,3))
+plot(ts_iq_box_cox_transform)
+acf(ts_iq_box_cox_transform, lag.max = 52*3) # ACF slowly decreases, need to take diff
+pacf(ts_iq_box_cox_transform, lag.max = 52*3)
+</code></pre></div></div>
+
+<p><img src="../img/dengue_prediction_files/figure-markdown_strict/unnamed-chunk-26-1.png" alt="" /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>par(mfrow=c(1,3))
+
+plot(diff(ts_iq_box_cox_transform))
+acf(diff(ts_iq_box_cox_transform), lag.max = 52*3)
+pacf(diff(ts_iq_box_cox_transform), lag.max = 52*3)
+</code></pre></div></div>
+
+<p><img src="../img/dengue_prediction_files/figure-markdown_strict/unnamed-chunk-26-2.png" alt="" /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>par(mfrow=c(1,2))
+a1 &lt;- acf(diff(ts_iq_box_cox_transform), lag.max = 52)
+b1 &lt;- pacf(diff(ts_iq_box_cox_transform), lag.max = 52)
+</code></pre></div></div>
+
+<p><img src="../img/dengue_prediction_files/figure-markdown_strict/unnamed-chunk-26-3.png" alt="" /></p>
+
+<p>The P max, Q max are not clear, while pmax = 3 or 24, qmax = 1. We fit
+an ARIMA model with p = 3, d = 1, q = 1 to the Box Cox transform of the
+time series of total cases of Iquitos.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Pmax=0
+#Qmax=0
+###pmax= 3 ou 24
+###qmax= 1
+
+fit1_iq &lt;- Arima(ts_iq_box_cox_transform, order = c(3,1,1))
+
+ts_iq_forecast_boxcox &lt;- boxcox.transform(ts(merged_iq_train$total_cases,  frequency=1), lambda1, lambda2)
+refit_iq &lt;- Arima(ts_iq_forecast_boxcox, model=fit1_iq)
+</code></pre></div></div>
+
+<p>We look at the ACF, PACF and the plot of the residuals.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>trainARIMA1_with_boxcox_transform_iq &lt;- head(refit_iq$fitted, nrow(iq_train)) %&gt;% as.numeric
+train_ARIMA1_iq &lt;- boxcox.inv(trainARIMA1_with_boxcox_transform_iq, lambda1, lambda2)
+par(mfrow=c(1,3))
+acf(iq_train$total_cases - train_ARIMA1_iq)
+pacf(iq_train$total_cases - train_ARIMA1_iq)
+plot(iq_train$total_cases - train_ARIMA1_iq)
+</code></pre></div></div>
+
+<p><img src="../img/dengue_prediction_files/figure-markdown_strict/unnamed-chunk-28-1.png" alt="" /></p>
+
+<p>The ACF and PACF graphs show that there are still little
+auto-correlations. The residuals look random, even though there’s still
+a little problem with the variance.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># check the MAE on test set
+prevARIMA1_with_boxcox_transform_iq &lt;- tail(refit_iq$fitted, nrow(iq_test)) %&gt;% as.numeric
+predict_ARIMA1_iq &lt;- boxcox.inv(prevARIMA1_with_boxcox_transform_iq, lambda1, lambda2)
+mae(iq_test$total_cases, predict_ARIMA1_iq)
+
+## [1] 4.42
+
+par(mfrow=c(1,1))
+plot(iq_test$total_cases,type='l')
+lines(predict_ARIMA1_iq%&gt;%as.numeric, col='red')
+</code></pre></div></div>
+
+<p><img src="../img/dengue_prediction_files/figure-markdown_strict/unnamed-chunk-29-1.png" alt="" /></p>
+
+<p>The MAE score on test set is 4.42 and our model could fit the data and
+there seems to be a lag of 1-week in the prediction.</p>
+
+<p>We proceed with taking the difference of the original series and fitting
+another ARIMA model, in spite of the variance in the difference.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>par(mfrow=c(1,3))
+plot(diff(ts_iq))
+acf(diff(ts_iq), lag.max=52*3)
+pacf(diff(ts_iq), lag.max=52*3)
+</code></pre></div></div>
+
+<p><img src="../img/dengue_prediction_files/figure-markdown_strict/unnamed-chunk-30-1.png" alt="" /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Pmax=0
+#Qmax=0
+acf(diff(ts_iq), lag.max=20)
+pacf(diff(ts_iq), lag.max=20)
+#pmax = 3
+#qmax = 6
+</code></pre></div></div>
+
+<p><img src="../img/dengue_prediction_files/figure-markdown_strict/unnamed-chunk-30-2.png" alt="" /></p>
+
+<p>Looking at the ACF and PACF, we then fit an ARIMA model with P = 0, Q =
+0, p = 3, d = 1, q = 6 and look again at the residuals and the ACF and
+PACF.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fit2_iq &lt;- Arima(ts_iq, order=c(3,1,6), method=c("CSS"))
+ts_forecast &lt;- ts(merged_iq_train$total_cases,  frequency=1)
+refit2_iq &lt;- Arima(ts_forecast, model=fit2_iq)
+
+# see if there is still residual on the training set
+trainARIMA2_iq &lt;- head(refit2_iq$fitted, nrow(iq_train)) %&gt;% as.numeric
+par(mfrow=c(1,1))
+plot(iq_train$total_cases - trainARIMA2_iq)
+</code></pre></div></div>
+
+<p><img src="../img/dengue_prediction_files/figure-markdown_strict/unnamed-chunk-31-1.png" alt="" /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>par(mfrow=c(1,2))
+acf(iq_train$total_cases - trainARIMA2_iq)
+pacf(iq_train$total_cases - trainARIMA2_iq)
+</code></pre></div></div>
+
+<p><img src="../img/dengue_prediction_files/figure-markdown_strict/unnamed-chunk-31-2.png" alt="" /></p>
+
+<p>The residuals look random, and the ACF and PACF do not show any
+auto-correlations.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># MAE on test set
+prevARIMA2_iq &lt;- tail(refit2_iq$fitted, nrow(iq_test))
+mae(iq_test$total_cases, prevARIMA2_iq)
+
+## [1] 4.27
+
+par(mfrow=c(1,1))
+plot(iq_test$total_cases,type='l')
+lines(prevARIMA2_iq%&gt;%as.numeric, col='red')
+</code></pre></div></div>
+
+<p><img src="../img/dengue_prediction_files/figure-markdown_strict/unnamed-chunk-32-1.png" alt="" /></p>
+
+<p>The MAE score on the test set is 4.27 and we could predict the peaks,
+even though there seems to be a lag of 1 week.</p>
+
+<h3 id="gradient-boosting">Gradient Boosting</h3>
+
+<p>In this section, we build Gradient Boosted trees models, which are
+powerful ensembles of decision trees as weak learners. Unlike Random
+Forest models, which perform well with little hyper-parameters tuning,
+for GBM models, we need to tune boosting parameters such as the number
+of trees and the learning rate, as well as tree specific parameters such
+as tree depth and the minimum numbers of observations in the terminal
+nodes. For simplicity, we will just use a grid search to find some best
+hyper-parameters. The family distribution is “poisson” for counting
+data.</p>
+
+<p>For Iquitos:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># hyper_grid &lt;- expand.grid(
+#   shrinkage = c(.05, .1, .2),
+#   interaction.depth = c(1, 2, 3),
+#   n.minobsinnode = c(5, 7, 10),
+#   bag.fraction = c(.65, .8, 1), 
+#   optimal_trees = 0,               # number of trees
+#   min_error = 0                     # min error
+# )
+# 
+# # grid search
+# for(i in 1:nrow(hyper_grid)) {
+#   # train model
+#   print(i)
+#   gbm.tune &lt;- gbm(
+#     formula = total_cases ~ .,
+#     distribution = "poisson",
+#     data = iq_train_,
+#     n.trees = 2000,
+#     interaction.depth = hyper_grid$interaction.depth[i],
+#     shrinkage = hyper_grid$shrinkage[i],
+#     n.minobsinnode = hyper_grid$n.minobsinnode[i],
+#     bag.fraction = hyper_grid$bag.fraction[i],
+#     train.fraction = .75,
+#     n.cores = NULL, # will use all cores by default
+#     verbose = FALSE
+#   )
+#   
+#   # add min training error and trees to grid
+#   hyper_grid$optimal_trees[i] &lt;- which.min(gbm.tune$valid.error)
+#   hyper_grid$min_error[i] &lt;- min(gbm.tune$valid.error)
+# }
+# 
+# hyper_grid %&gt;% 
+#   dplyr::arrange(min_error) %&gt;%
+#   head(10)
+
+set.seed(123)
+gbm.fit &lt;- gbm(
+  formula = total_cases ~ .,
+  distribution = "poisson",
+  data = iq_train_,
+  n.trees = 300,
+  interaction.depth = 2,
+  shrinkage = 0.05,
+  cv.folds = 5,
+  bag.fraction = 0.8,
+  n.minobsinnode = 7,
+  train.fraction = .75,
+  n.cores = NULL, # will use all cores by default
+  verbose = FALSE
+  )  
+
+best &lt;- which.min(gbm.fit$cv.error) # find index for the number of trees with minimum CV error
+#best
+#gbm.fit$cv.error[best]
+#gbm.perf(gbm.fit, method = "cv")
+pred_iq &lt;- predict(gbm.fit, n.trees = best, iq_test_, type="response")
+mae(iq_test$total_cases, pred_iq) # 4.55
+
+## [1] 4.55
+
+plot(iq_test$total_cases,type='l')
+lines(pred_iq, col='red')
+</code></pre></div></div>
+
+<p><img src="../img/dengue_prediction_files/figure-markdown_strict/unnamed-chunk-35-1.png" alt="" /></p>
+
+<p>The MAE score is 4.55, lower than the one of Random Forest.</p>
+
+<p>Similarly for San Juan:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># for reproducibility
+set.seed(123)
+# hyper_grid &lt;- expand.grid(
+#   shrinkage = c(.05, .1, .2),
+#   interaction.depth = c(1, 2, 3),
+#   n.minobsinnode = c(5, 7, 10),
+#   bag.fraction = c(.65, .8, 1), 
+#   optimal_trees = 0,               # number of trees
+#   min_error = 0                     # min error
+# )
+# 
+# # grid search
+# for(i in 1:nrow(hyper_grid)) {
+#   # train model
+#   print(i)
+#   gbm.tune &lt;- gbm(
+#     formula = total_cases ~ .,
+#     distribution = "poisson",
+#     data = sj_train,
+#     n.trees = 2000,
+#     interaction.depth = hyper_grid$interaction.depth[i],
+#     shrinkage = hyper_grid$shrinkage[i],
+#     n.minobsinnode = hyper_grid$n.minobsinnode[i],
+#     bag.fraction = hyper_grid$bag.fraction[i],
+#     train.fraction = .75,
+#     n.cores = NULL, # will use all cores by default
+#     verbose = FALSE
+#   )
+#   
+#   # add min training error and trees to grid
+#   hyper_grid$optimal_trees[i] &lt;- which.min(gbm.tune$valid.error)
+#   hyper_grid$min_error[i] &lt;- min(gbm.tune$valid.error)
+# }
+# 
+# hyper_grid %&gt;% 
+#   dplyr::arrange(min_error) %&gt;%
+#   head(10)
+
+set.seed(123)
+gbm.fit &lt;- gbm(
+  formula = total_cases ~ .,
+  distribution = "poisson",
+  data = sj_train_,
+  n.trees = 500,
+  interaction.depth = 3,
+  shrinkage = 0.2,
+  cv.folds = 5,
+  bag.fraction = 0.8,
+  train.fraction = .75,
+  n.cores = NULL, # will use all cores by default
+  verbose = FALSE
+)  
+
+best &lt;- which.min(gbm.fit$cv.error) # find index for the number of trees with minimum CV error
+#best
+#gbm.fit$cv.error[best]
+#gbm.perf(gbm.fit, method = "cv")
+pred_sj &lt;- predict(gbm.fit, n.trees = best, sj_test_, type="response")
+mae(sj_test$total_cases, pred_sj)
+
+## [1] 7.74
+
+plot(sj_test$total_cases,type='l')
+lines(pred_sj, col='red')
+</code></pre></div></div>
+
+<p><img src="../img/dengue_prediction_files/figure-markdown_strict/unnamed-chunk-37-1.png" alt="" /></p>
+
+<h3 id="expert-aggregation-exponentiated-gradient-forecaster">Expert Aggregation (Exponentiated Gradient forecaster)</h3>
+
+<p>In this section, we collect some of the models above and put together an
+aggregation of experts model, a strategy in sequential learning. This
+model could perform as best as the convex combination of the best
+experts, hence in the long run could potentially outperform the best
+expert.</p>
+
+<p>For Iquitos, we will put together the following models:</p>
+
+<ul>
+  <li>a GAM model, MAE = 5.54</li>
+  <li>a CART model, MAE = 5.49</li>
+  <li>a Random Forest model, MAE = 5.09</li>
+  <li>a ARIMA model, MAE = 4.27</li>
+  <li>a Boosted Tree model, MAE = 4.41</li>
+</ul>
+
+<!-- -->
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>set.seed(123)
+gam_iq &lt;- gam(total_cases ~ s(reanalysis_specific_humidity_g_per_kg) + s(reanalysis_dew_point_temp_k) + s(ndvi_sw)
+          + s(population_total) 
+          + s(Time) + s(weekofyear) 
+          + s(log(lag_1_total_cases+1)) + s(log(lag_2_total_cases+1))+ s(log(lag_3_total_cases+1))
+          ,family = nb(), data = iq_train, method = "REML")
+gam_iq_forecast &lt;- predict(gam_iq, newdata = iq_test, type = "response")
+#mae(gam_iq_forecast, iq_test$total_cases)
+#########################################################################
+tree_iq &lt;- rpart(formula = total_cases ~ ., 
+                 data = iq_train,
+                 method = "anova")
+tree_iq_forecast &lt;- predict(tree_iq, newdata = iq_test)
+#mae(tree_iq_forecast, iq_test$total_cases)
+#########################################################################
+rf_iq &lt;- randomForest(total_cases~.,ntree=500,data=iq_train, importance = TRUE, mtry = 3)
+rf_iq_forecast &lt;- predict(rf_iq,newdata=iq_test)
+#mae(rf_iq_forecast, iq_test$total_cases)
+#########################################################################
+ts_iq&lt;-ts(iq_train$total_cases, frequency=1) 
+fit2_iq &lt;- Arima(ts_iq, order=c(3,1,6), method=c("CSS"))
+ts_forecast &lt;- ts(merged_iq_train$total_cases,  frequency=1)
+refit2_iq &lt;- Arima(ts_forecast, model=fit2_iq)
+arima_iq_forecast &lt;- tail(refit2_iq$fitted, nrow(iq_test))
+#mae(arima_iq_forecast, iq_test$total_cases)
+#########################################################################
+gbm.fit &lt;- gbm(
+  formula = total_cases ~ .,
+  distribution = "poisson",
+  data = iq_train_,
+  n.trees = 300,
+  interaction.depth = 2,
+  shrinkage = 0.05,
+  cv.folds = 5,
+  bag.fraction = 0.8,
+  n.minobsinnode = 7,
+  train.fraction = .75,
+  n.cores = NULL, # will use all cores by default
+  verbose = FALSE
+)  
+
+best &lt;- which.min(gbm.fit$cv.error) # find index for the number of trees with minimum CV error
+gbm_iq_forecast &lt;- predict(gbm.fit, n.trees = best, iq_test_, type="response")
+#mae(gbm_iq_forecast, iq_test$total_cases)
+</code></pre></div></div>
+
+<p>The aggregation expert prediction is formed using the Exponentiated
+Gradient forecaster algorithm. As our metric is MAE, we will be using
+the absolute value function as the loss. We use model = “EWA” and
+loss.gradient = TRUE as the EG forecaster algorithm is the EWA algorithm
+with the gradient of the loss function as the loss vectors. It gives a
+MAE score of 4.2.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>set.seed(123)
+experts &lt;- cbind(gam_iq_forecast, tree_iq_forecast,
+                 rf_iq_forecast, arima_iq_forecast,
+                 gbm_iq_forecast)
+colnames(experts)&lt;-c("gam", "tree", "forest", "arima", "gbm")
+
+MLpol &lt;- mixture(Y = iq_test$total_cases, experts = experts, 
+                        loss.type = "absolute", model = "EWA", loss.gradient = TRUE)
+aggregation_iq_forecast &lt;- MLpol$prediction
+#mae(iq_test$total_cases, aggregation_iq_forecast) # 4.2
+par(mfrow=c(1,1))
+plot(iq_test$total_cases,type='l')
+lines(aggregation_iq_forecast, col='red')
+</code></pre></div></div>
+
+<p><img src="../img/dengue_prediction_files/figure-markdown_strict/unnamed-chunk-40-1.png" alt="" /></p>
+
+<p>For San Juan, we will put together the following models:<br />
+* a Tree model, MAE = 8.95<br />
+* a Random Forest Model, MAE = 7.62<br />
+* a Boosted Tree Model, MAE = 7.26</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>set.seed(123)
+tree_sj &lt;- rpart(formula = total_cases ~ ., 
+                 data = sj_train,
+                 method = "anova")
+tree_sj_forecast &lt;- predict(tree_sj, newdata = sj_test)
+#mae(sj_test$total_cases, tree_sj_forecast)
+rf_sj=randomForest(total_cases~.,ntree=500, data=sj_train, importance = TRUE, mtry = 13)
+rf_sj_forecast=predict(rf_sj,newdata=sj_test)
+#mae(sj_test$total_cases, rf_sj_forecast)
+
+gbm_sj &lt;- gbm(
+  formula = total_cases ~ .,
+  distribution = "poisson",
+  data = sj_train_,
+  n.trees = 500,
+  interaction.depth = 3,
+  shrinkage = 0.2,
+  cv.folds = 5,
+  bag.fraction = 0.8,
+  train.fraction = .75,
+  n.cores = NULL, # will use all cores by default
+  verbose = FALSE
+)  
+
+best &lt;- which.min(gbm_sj$cv.error) # find index for the number of trees with minimum CV error
+#best
+#gbm.fit$cv.error[best]
+#gbm.perf(gbm.fit, method = "cv")
+bgm_sj_forecast &lt;- predict(gbm_sj, n.trees = best, sj_test_, type="response")
+#mae(sj_test$total_cases, bgm_sj_forecast) # 7.26
+
+set.seed(123)
+experts &lt;- cbind(tree_sj_forecast,
+                 rf_sj_forecast,
+                 bgm_sj_forecast)
+colnames(experts)&lt;-c("tree", "forest", "gbm")
+MLpol &lt;- mixture(Y = sj_test$total_cases, experts = experts, 
+                 loss.type = "absolute", model = "EWA", loss.gradient = TRUE)
+aggregation_sj_forecast &lt;- MLpol$prediction
+#mae(sj_test$total_cases, aggregation_sj_forecast) # 7.47
+par(mfrow=c(1,1))
+plot(sj_test$total_cases,type='l')
+lines(aggregation_sj_forecast, col='red')
+</code></pre></div></div>
+
+<p><img src="../img/dengue_prediction_files/figure-markdown_strict/unnamed-chunk-42-1.png" alt="" /></p>
+
+<p>In the case of San Juan, our aggregation of expert advices gives a MAE
+score of 7.47. Hence, in the case of Iquitos, the EG strategy proves to
+be useful as it gives predictions even better than the best experts.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>In this report, we implemented major algorithms in machine learning:
+Generalized Additive Model, ARIMA, Random Forest, Gradient Boosting
+Trees, Exponentiated Gradient forecaster to predict the total number of
+cases of Dengue disease. The models achieve good results without the
+need to carefully tune the hyper-parameters. A difficulty in some of
+these models is that the residuals have mean 0, but still have variance.
+A direction to solve this problem, as suggested in class is to also
+model the variance in the data. The graphs of some of the best models
+show that the prediction is 1-week lag, so it might be better to predict
+the number of cases of the current week using the environmental data
+from the previous week. Together with a more fine tuning of the models,
+a better feature engineering and a better choice of chaining the models
+together, it’s promising that these models could achieve even better
+results.</p>
+
+</div>
+
+<footer class="navbar navbar-expand navbar-light bg-light bg-gradient border-top">
+  <div class="container-fluid">
+    <div class="ms-auto">
+      <ul class="navbar-nav mb-2 mb-lg-0">
+        <a class="nav-link" href="https://techfolios.github.io">Made with Techfolios</a>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+  </body>
+</html>
