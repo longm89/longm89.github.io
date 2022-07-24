@@ -13,7 +13,7 @@ labels:
 summary: A fruit prediction app trained using a pretrained-Resnet50 model via the fastai library. The model is trained using 5000 images collected from duckduckgo.
 ---
 
-<img class="img-fluid" src="..img/fruits_prediction/fruits_prediction.jpg">
+<img class="img-fluid" src="../img/fruits_prediction/fruits_prediction.jpg">
 
 A fruit prediction app trained using a pretrained-Resnet50 model via the fastai library. The model is trained using 5000 images collected from duckduckgo.
 
